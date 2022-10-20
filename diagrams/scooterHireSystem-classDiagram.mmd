@@ -1,0 +1,34 @@
+classDiagram
+
+    ScooterApp --* Scooter
+    User -- ScooterApp: Users use the scooter app
+
+    class ScooterApp {
+        -object stations
+        -object registeredUsers
+        -static array scooterSessions
+
+        +register(user)
+        +logIn(username, password)
+        +addScooter(location, scooter)
+        +RemoveScooter(scooterToRemove)
+    }
+
+    class Scooter {
+        -number serial
+        -number charge
+        -boolean isBroken
+        -boolean docked
+        -string station
+
+        +rent()
+        +dock(station)
+        +recharge()
+        +requestRepair()
+    }
+
+    class User {
+        +string username
+        +string password
+        +number age
+    }
