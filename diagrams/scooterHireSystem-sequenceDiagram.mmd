@@ -21,11 +21,11 @@ sequenceDiagram
 
     User ->> ScooterApp: Rent Scooter
     ScooterApp ->> Scooter: rent()
-    activate Scooter
     alt Scooter is either broken or on low battery
         Scooter -->> ScooterApp: Scooter Unavailable
-        deactivate Scooter
     else
+        activate Scooter
+        Scooter -->> ScooterApp: Ride Began
         ScooterApp -->> User: Enjoy the ride
     end
 
@@ -35,9 +35,8 @@ sequenceDiagram
         Scooter -->> ScooterApp: Needs station argument
     else
         deactivate Scooter
-        ScooterApp
-        o,p.[/="
-    p-=;'[-->> User: Scooter docked
+        Scooter -->> ScooterApp: Successfully docked
+        ScooterApp -->> User: Scooter docked
     end
 
     User ->> ScooterApp: Login
