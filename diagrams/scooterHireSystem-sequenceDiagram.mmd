@@ -1,3 +1,55 @@
-sequenceDiagram 
+sequenceDiagram
 
-    
+    actor User
+    actor Scooter
+
+    User ->> ScooterApp: register(user)
+    alt User already registered
+        ScooterApp -->> User: Already Registered!
+    else
+        activate ScooterApp
+        ScooterApp -->> User: User registered
+        deactivate ScooterApp
+    end
+    alt User is under 17
+        ScooterApp -->> User: Too young to register!
+    else
+        activate ScooterApp
+        ScooterApp -->> User: User registered
+        deactivate ScooterApp
+    end
+
+    User ->> ScooterApp: Rent Scooter
+    ScooterApp ->> Scooter: rent()
+    activate Scooter
+    alt Scooter is either broken or on low battery
+        Scooter -->> ScooterApp: Scooter Unavailable
+        deactivate Scooter
+    else
+        ScooterApp -->> User: Enjoy the ride
+    end
+
+    User ->> ScooterApp: Dock Scooter
+    ScooterApp ->> Scooter: dock(station)
+    alt No station passed in
+        Scooter -->> ScooterApp: Needs station argument
+    else
+        deactivate Scooter
+        ScooterApp
+        o,p.[/="
+    p-=;'[-->> User: Scooter docked
+    end
+
+    User ->> ScooterApp: Login
+    activate ScooterApp
+    alt User in registered users
+        ScooterApp -->> User: User in registered users
+    else
+        ScooterApp -->> User: User not in registered users
+    end
+    alt Username or password is correct
+        ScooterApp -->> User: Login successful
+    else
+        ScooterApp -->> User: Username or password is incorrect
+    end
+    deactivate ScooterApp
