@@ -2,6 +2,8 @@ flowchart LR
     EXISTINGUSER([Existing User])
     NEWUSER([New User])
     SCOOTER([Scooter])
+    REPAIRSERVICE([Repair Service])
+    style REPAIRSERVICE fill:#ccf
     style SCOOTER fill:#ccf
     style NEWUSER fill:#ccf
     style EXISTINGUSER fill:#ccf
@@ -9,11 +11,12 @@ flowchart LR
     EXISTINGUSER-->rent
     EXISTINGUSER-->dock
     NEWUSER-->register
-    DEV([Admin])-->addScooter
+    EXISTINGUSER-->requestRepair
+    EXISTINGUSER-->addScooter
     SCOOTERAPP([ScooterApp])
     style SCOOTERAPP fill:#ccf
-    style DEV fill:#ccf
-    DEV-->removeScooter
+    EXISTINGUSER-->removeScooter
+
 
     addScooter[Add Scooter]
     removeScooter[Remove Scooter]
@@ -30,10 +33,13 @@ flowchart LR
 
     login-->SCOOTERAPP
     register-->SCOOTERAPP
+    requestRepair-->SCOOTERAPP
     register-->EXISTINGUSER
     rent-->SCOOTER
     dock-->SCOOTER
-    SCOOTER-->SCOOTERAPP
+    SCOOTER<-->SCOOTERAPP
+
+    SCOOTERAPP<-->REPAIRSERVICE
 
     addScooter-->SCOOTERAPP
     removeScooter-->SCOOTERAPP
