@@ -61,7 +61,7 @@ class Scooter{
     console.log('Charge complete');
   }
 
-  requestRepair() {
+  async requestRepair() {
     console.log("Requesting Repair")
     await new Promise(resolve => setTimeout(resolve, 2000));
     console.log("Repair Requested")
