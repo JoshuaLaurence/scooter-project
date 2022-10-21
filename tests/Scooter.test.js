@@ -5,7 +5,6 @@ const logg = jest.spyOn(console, "log").mockImplementation(() => {})
 
 const currentUser = new User("J0sH", "wowwhatagreatpassword", 19)
 const scooter = new Scooter("Manchester", currentUser)
-
 //typeof scooter === object
 describe('Scooter Object', () => {
 
@@ -13,6 +12,16 @@ describe('Scooter Object', () => {
   test('Check static method is logging all previous serial numbers', () => {
     expect(Scooter.usedSerials).toEqual(new Set([scooter.serial]))
   })
+  test('Unique serial function works', () => {
+    const serial = Scooter.generateUniqueSerial(Scooter.usedSerials, false)
+    expect(Scooter.usedSerials.has(serial)).toBeTruthy()
+    expect(serial >= 0 && serial <= 1000).toBeTruthy()
+  });
+
+  test('Unique serial function works', () => {
+    const serial = Scooter.generateUniqueSerial(Scooter.usedSerials, true)
+    expect(logg).toHaveBeenCalledWith("Serial is already in use")
+  });
 
   test('Check the scooter station has been constructed', () => {
     expect(scooter.station).toEqual("Manchester");
@@ -35,6 +44,17 @@ describe('Scooter Object', () => {
   test('Check the docked variable is set to true', () => {
     expect(scooter.docked).toEqual(true)
   })
+
+  test('Testing isBroken setter works', () => {
+    scooter.isBroken = true
+    expect(scooter.isBroken).toBeTruthy()
+    scooter.isBroken = false
+  });
+  test('Testing charge setter works, while also adapting the range value', () => {
+    scooter.charge = 25
+    expect(scooter.charge).toEqual(25)
+    expect(scooter.range).toEqual(8)
+  });
 })
 
 
