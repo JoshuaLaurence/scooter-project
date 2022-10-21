@@ -1,1 +1,41 @@
-usecaseDiagram
+flowchart LR
+    EXISTINGUSER([Existing User])
+    NEWUSER([New User])
+    SCOOTER([Scooter])
+    style SCOOTER fill:#ccf
+    style NEWUSER fill:#ccf
+    style EXISTINGUSER fill:#ccf
+    EXISTINGUSER-->login[Login]
+    EXISTINGUSER-->rent
+    EXISTINGUSER-->dock
+    NEWUSER-->register
+    DEV([Admin])-->addScooter
+    SCOOTERAPP([ScooterApp])
+    style SCOOTERAPP fill:#ccf
+    style DEV fill:#ccf
+    DEV-->removeScooter
+
+    addScooter[Add Scooter]
+    removeScooter[Remove Scooter]
+
+    rent[Rent Scooter]
+
+
+
+    dock[Dock Scooter]
+
+
+
+    register[Register]
+
+    login-->SCOOTERAPP
+    register-->SCOOTERAPP
+    register-->EXISTINGUSER
+    rent-->SCOOTER
+    dock-->SCOOTER
+    SCOOTER-->SCOOTERAPP
+
+    addScooter-->SCOOTERAPP
+    removeScooter-->SCOOTERAPP
+
+    register

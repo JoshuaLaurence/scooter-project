@@ -52,3 +52,19 @@ sequenceDiagram
         ScooterApp -->> User: Username or password is incorrect
     end
     deactivate ScooterApp
+
+    User ->> ScooterApp: Add Scooter addScooter(location, scooter)
+    activate ScooterApp
+    ScooterApp ->> User: Scooter Added
+    deactivate ScooterApp
+
+    User ->> ScooterApp: Remove Scooter removeScooter(scooterToRemove)
+    activate ScooterApp
+    alt Serial Number of Scooter Not Found
+        ScooterApp ->> User: Scooter not found
+    else
+        ScooterApp ->> Scooter: Please remove yourself
+        Scooter -->> ScooterApp: Removed
+        ScooterApp -->> User: Scooter successfully removed
+    deactivate ScooterApp
+    end
