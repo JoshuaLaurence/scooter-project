@@ -18,7 +18,7 @@ class ScooterApp {
 
   //Methods
   register(user) {
-    if(this.#registeredUsers.has(user)) {
+    if(Object.keys(this.#registeredUsers).includes(user.username)) {
       console.log("Already registered")
     }
 
@@ -41,25 +41,24 @@ class ScooterApp {
       if(this.#registeredUsers[username]["password"] === password) {
         this.#registeredUsers[username]["loggedIn"] = true
         console.log("Loggin successful")
-      } else { console.log("Password incorrecy") }
-    } else { console.log("This username doesn't appear to be registered with us")}
+      } else { throw new Error("Username or password is incorrect")}
+    } else { throw new Error("Username or password is incorrect")}
   }
 
   addScooter(location, scooter) {
-    if (Object.keys(this._stations).includes(location)) {
-      this._stations[location].push(scooter)
-    } else { this._stations[location] = [scooter] }
+    this._stations[location].push(scooter)
   }
 
-  removeScooter(scooterToRemove) {;
-    /* Simple Way -->
-    const ind = this._stations[scooterToRemove.location].indexOf(scooteToRemove.serial)
+  removeScooter(scooterToRemove) {
+    const ind = this._stations[scooterToRemove.station].indexOf(scooterToRemove)
+
     if (ind === -1) {
       throw new Error("Serial number not located. Scooter has not yet been added")
     }
 
-    this._stations[scooterToRemove.location].splice(ind, 1);
-    */
+    this._stations[scooterToRemove.station].splice(ind, 1)
+    console.log("Scooter successfully removed")
+    /* BONUS EXERCISE --> Remove Scooter based off only serial number
     let found = false;
     for(let location of this._stations) {
       const ind = location.indexOf(scooterToRemove.serial)
@@ -71,10 +70,14 @@ class ScooterApp {
     }
 
     if (!found) { throw new Error("Scooter could not be located") }
+    */
+  }
+
+  async scooterBroken(scooter) {
+    this.removeScooter(scooter)
+    await scooter.requestRepair()
   }
 
 }
-const scoot = new ScooterApp()
-
 
 module.exports = ScooterApp

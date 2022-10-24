@@ -14,7 +14,6 @@ class User {
   get username() {return this.#username}
   get password() {return this.#password}
   get age() {return this.#age}
-
 }
 
 module.exports = User

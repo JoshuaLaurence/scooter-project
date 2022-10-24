@@ -68,3 +68,8 @@ sequenceDiagram
         ScooterApp -->> User: Scooter successfully removed
     deactivate ScooterApp
     end
+
+    User ->> ScooterApp: Repair Scooter requestRepair()
+    activate ScooterApp
+    ScooterApp -->> User: Repair Request Sent
+    deactivate ScooterApp
